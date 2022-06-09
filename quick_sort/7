@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+
+void rac( int *number,int first,int last){
+   int i, j, pivot, temp;
+
+   if(first < last)
+   {
+      pivot = first;
+      i = first;
+      j = last;
+
+      while(i < j)
+      {
+         while(number[i] <= number[pivot] && i < last)
+            i++;
+         while(number[j] > number[pivot])
+            j--;
+         if(i < j)
+	 {
+            temp = number[i];
+            number[i] = number[j];
+            number[j] = temp;
+         }
+      }
+
+      temp = number[pivot];
+      number[pivot] = number[j];
+      number[j] = temp;
+      rac(number, first, j-1);
+      rac(number, j + 1, last);
+
+   }
+}
+void quicksort(int *tab, int len)
+{
+    rac(*tab,tab[0],tab[len-1]);
+}
+
+
+int main(void)
+{
+unsigned i = 0;
+int tab[] = {2, 10, 11, 2, 3};
+unsigned size = sizeof(tab) / sizeof(int);
+quicksort(tab, size);
+for (; i < size - 1; ++i){
+    printf("%d ", tab[i]);
+    printf("%d\n", tab[i]);
+    return 0;
+    }
+}
